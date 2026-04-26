@@ -1,0 +1,430 @@
+/* BIROOR AKILLI TAHTA PANELİ - ENHANCED THEME & GUI STYLES */
+
+/* ===== GLOBAL ANIMATION LIBRARY ===== */
+
+/* Fade Effects */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+/* Slide Effects */
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideLeft {
+    from { transform: translateX(-20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideRight {
+    from { transform: translateX(20px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Scale Effects */
+@keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes scaleOut {
+    from { transform: scale(1); opacity: 1; }
+    to { transform: scale(0.95); opacity: 0; }
+}
+
+/* Pulse & Glow Effects */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.8; }
+}
+
+@keyframes glow {
+    0%, 100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+    50% { box-shadow: 0 0 20px rgba(56, 189, 248, 0.6); }
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Bounce Effect */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* Ripple Effect */
+@keyframes ripple {
+    0% {
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+    100% {
+        width: 300px;
+        height: 300px;
+        opacity: 0;
+    }
+}
+
+/* Shimmer Loader */
+@keyframes skeleton-shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes spinner {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* ===== ENHANCED THEME SYSTEM ===== */
+/* 
+This file complements index.html with extended theme capabilities.
+The main theme variables are defined in index.html CSS custom properties.
+
+Enhanced features:
+- Smooth transitions (0.3s cubic-bezier easing)
+- Glassmorphism effects with backdrop-filter blur
+- Gradient overlays for depth
+- Enhanced hover states with scale and transform
+- Micro-interactions and visual feedback
+- Accessibility improvements (focus states, reduced motion)
+- Consistent spacing and typography
+- Modern animation library
+*/
+
+/* ===== FOCUS STATES & ACCESSIBILITY ===== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+@media (prefers-contrast: more) {
+    :root[data-theme="dark"] {
+        --glass: rgba(255, 255, 255, 0.15);
+        --accent: #4fb3ff;
+    }
+}
+
+/* ===== SCROLLBAR CUSTOMIZATION ===== */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(56, 189, 248, 0.5);
+    border-radius: 12px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(56, 189, 248, 0.8);
+    background-clip: padding-box;
+    border: 1px solid transparent;
+}
+
+/* ===== UTILITY CLASSES ===== */
+
+.smooth-transition {
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.smooth-fade {
+    transition: opacity 0.3s ease;
+}
+
+.glow-effect {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.glow-effect-large {
+    box-shadow: 0 0 30px rgba(56, 189, 248, 0.5);
+}
+
+.backdrop-blur {
+    backdrop-filter: blur(25px);
+}
+
+.backdrop-blur-strong {
+    backdrop-filter: blur(30px) saturate(1.8);
+}
+
+.gradient-accent {
+    background: linear-gradient(135deg, var(--accent), rgba(56, 189, 248, 0.7));
+}
+
+.gradient-panel {
+    background: linear-gradient(135deg, var(--panel-bg), rgba(30, 41, 59, 0.6));
+}
+
+.gradient-glass {
+    background: linear-gradient(160deg, rgba(15, 23, 42, 0.82), rgba(30, 41, 59, 0.68));
+}
+
+.glass-morphism {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+.elevated-shadow {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.inset-shadow {
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.hover-lift {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(56, 189, 248, 0.3);
+}
+
+.hover-scale {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+.hover-glow {
+    transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+    box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+}
+
+.interactive-element {
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skeleton-loader {
+    background: linear-gradient(90deg, rgba(56, 189, 248, 0.1), rgba(56, 189, 248, 0.3), rgba(56, 189, 248, 0.1));
+    background-size: 1000px 100%;
+    border-radius: 10px;
+    animation: skeleton-shimmer 2s infinite;
+}
+
+.pulse-animation {
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.glow-animation {
+    animation: glow 2s ease-in-out infinite;
+}
+
+.float-animation {
+    animation: float 3s ease-in-out infinite;
+}
+
+.bounce-animation {
+    animation: bounce 2s ease-in-out infinite;
+}
+
+/* ===== DATA VISUALIZATION ===== */
+
+.striped-list > li:nth-child(odd) {
+    background: rgba(56, 189, 248, 0.05);
+}
+
+.striped-list > li:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.striped-list > li {
+    transition: background 0.2s ease;
+}
+
+.striped-list > li:hover {
+    background: rgba(56, 189, 248, 0.15);
+}
+
+.status-success { color: #34d399; }
+.status-warning { color: #fbbf24; }
+.status-error { color: #f87171; }
+.status-info { color: #60a5fa; }
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.status-badge-success {
+    background: rgba(52, 211, 153, 0.2);
+    color: #34d399;
+    border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+.status-badge-warning {
+    background: rgba(251, 191, 36, 0.2);
+    color: #fbbf24;
+    border: 1px solid rgba(251, 191, 36, 0.4);
+}
+
+.status-badge-error {
+    background: rgba(248, 113, 113, 0.2);
+    color: #f87171;
+    border: 1px solid rgba(248, 113, 113, 0.4);
+}
+
+/* ===== COMPONENT-SPECIFIC ENHANCEMENTS ===== */
+
+.card-hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+.button-ripple::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.5), transparent);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+.button-ripple:active::after {
+    animation: ripple 0.6s ease-out;
+}
+
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+
+@media (max-width: 768px) {
+    .smooth-transition {
+        transition: all 0.2s ease;
+    }
+}
+
+/* ===== THEME COLOR PALETTE REFERENCE ===== */
+/*
+Available themes:
+- dark, light, forest, midnight, ocean, sunset, cyber, rose
+- canva, mars, lavender, deepsea, gold, aurora, arctic, ember
+- espresso, coral, emerald, sky, graphite, neon, sepia, glacier
+- plum, steel, lemon, sakura, sand, storm, ruby, mint
+- obsidian, dawn, twilight, lagoon, meadow, copper, cobalt, pearl
+- mono, bubblegum, charcoal, sunrise, dusk, pine, violet, amber
+- frost, volcano, rain, orchid, desertnight
+
+Each theme includes:
+- --bg-gradient: Background gradient
+- --panel-bg: Panel background
+- --text-main: Main text color
+- --accent: Accent color
+- --glass: Glass effect
+- --shadow: Shadow effect
+*/
+
+/* ===== UI FRAMEWORK ENHANCEMENTS ===== */
+
+/* Modal Dialog Enhancements */
+.modal-overlay-enhanced {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(12px);
+    animation: fadeIn 0.3s ease;
+}
+
+.modal-content-enhanced {
+    animation: slideDown 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Tab Navigation */
+.tab-nav-enhanced {
+    display: flex;
+    gap: 12px;
+    border-bottom: 2px solid var(--glass);
+    padding-bottom: 12px;
+}
+
+.tab-nav-enhanced .tab {
+    position: relative;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-weight: 700;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-nav-enhanced .tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: -100%;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transition: left 0.3s ease;
+}
+
+.tab-nav-enhanced .tab.active {
+    color: var(--accent);
+}
+
+.tab-nav-enhanced .tab.active::after {
+    left: 0;
+}
+
+/* Version Info */
+/* Biroor Akıllı Tahta Paneli - Enhanced UI Framework v2.0 */
+/* Last Updated: 2026-04-05 */
+/* Optimized for modern browsers with smooth animations and micro-interactions */

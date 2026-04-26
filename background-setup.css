@@ -1,0 +1,286 @@
+
+
+/* ===== TEMEL AYARLAR ===== */
+
+
+
+
+body {
+    background-image: url('arkaplan.png');
+}
+
+
+/* Açık-Koyu Gradient Overlay */
+body.bg-with-overlay::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.5));
+    opacity: 1;
+}
+
+/* Daha Açık Overlay (Fotoğrafı daha fazla görmek için) */
+body.bg-light-overlay::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.3));
+    opacity: 1;
+}
+
+/* Daha Koyu Overlay (Texto daha net için) */
+body.bg-dark-overlay::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 41, 59, 0.8));
+    opacity: 1;
+}
+
+/* Radial Gradient Overlay */
+body.bg-radial-overlay::before {
+    background: radial-gradient(circle at center, rgba(15, 23, 42, 0.3), rgba(0, 0, 0, 0.6));
+    opacity: 1;
+}
+
+/* No Overlay - Sadece Fotoğraf */
+body.bg-no-overlay::before {
+    display: none;
+}
+
+/* Tema-uyumlu Overlay */
+body.bg-theme-overlay::before {
+    background: var(--bg-gradient);
+    opacity: 0.75;
+}
+
+/* ===== AKA PLAN POZISYON AYARLARI ===== */
+
+/* Ortalanmış (Varsayılan) */
+body.bg-center {
+    background-position: center;
+}
+
+/* Sol üst */
+body.bg-top-left {
+    background-position: top left;
+}
+
+/* Sağ üst */
+body.bg-top-right {
+    background-position: top right;
+}
+
+/* Sol alt */
+body.bg-bottom-left {
+    background-position: bottom left;
+}
+
+/* Sağ alt */
+body.bg-bottom-right {
+    background-position: bottom right;
+}
+
+/* Yukarı */
+body.bg-top {
+    background-position: top center;
+}
+
+/* Aşağı */
+body.bg-bottom {
+    background-position: bottom center;
+}
+
+/* ===== AKA PLAN BOYUT AYARLARI ===== */
+
+/* Örtüyü tamamen kapla (Varsayılan) */
+body.bg-cover {
+    background-size: cover;
+}
+
+/* Resmel göster */
+body.bg-contain {
+    background-size: contain;
+}
+
+/* Tekrarla */
+body.bg-repeat {
+    background-repeat: repeat;
+    background-size: auto;
+}
+
+/* Yatay tekrar */
+body.bg-repeat-x {
+    background-repeat: repeat-x;
+    background-size: auto 100%;
+}
+
+/* Dikey tekrar */
+body.bg-repeat-y {
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+}
+
+/* ===== AKA PLAN HAREKETLERI ===== */
+
+/* Sabit arka plan (Kaydırma yapılmaz) */
+body.bg-fixed {
+    background-attachment: fixed;
+}
+
+/* Kaydırılabilir arka plan */
+body.bg-scroll {
+    background-attachment: scroll;
+}
+
+/* Parallax Efekti */
+body.bg-parallax {
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+@keyframes parallax-scroll {
+    0% { background-position: center 0; }
+    100% { background-position: center 100px; }
+}
+
+body.bg-parallax-animate {
+    animation: parallax-scroll 10s linear infinite;
+}
+
+/* ===== HAZIR ARKA PLAN KOMBİNASYONLARI ===== */
+
+/* Profesyonel - Koyu Overlay, Merkezli, Sabit */
+body.bg-professional {
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body.bg-professional::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.55), rgba(30, 41, 59, 0.65));
+    opacity: 1;
+}
+
+/* Açık - Hafif Overlay, Merkezli */
+body.bg-light {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body.bg-light::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.2), rgba(30, 41, 59, 0.25));
+    opacity: 1;
+}
+
+/* Dinamik - Parallax ile Hareketli */
+body.bg-dynamic {
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+body.bg-dynamic::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.5));
+    opacity: 1;
+}
+
+/* Minimal - Overlay yok, Basit */
+body.bg-minimal::before {
+    display: none;
+}
+
+body.bg-minimal {
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* ===== KULLANIM ÖRNEKLERİ ===== */
+
+/*
+1. HTML'e sınıf ekleyin:
+   <body class="bg-professional">
+   
+2. CSS'de arka plan resmini ayarlayın:
+   body {
+       );
+   }
+
+3. Tema ile birleştirin:
+   <body data-theme="dark" class="bg-professional">
+
+4. Kombinasyonları kullanın:
+   <body class="bg-professional bg-theme-overlay bg-center">
+   
+5. Overlay'ı değiştirin:
+   <body class="bg-light-overlay">
+   
+6. Parallax efekti ekleyin:
+   <body class="bg-dynamic">
+*/
+
+/* ===== TEMA-SPESIFIK AKA PLAN OVERLAYLERİ ===== */
+
+:root[data-theme="dark"] body::before {
+    background: var(--bg-gradient);
+}
+
+:root[data-theme="light"] body::before {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.3), rgba(225, 232, 240, 0.4));
+}
+
+:root[data-theme="dark"] body.bg-dark-overlay::before {
+    background: linear-gradient(135deg, rgba(2, 6, 23, 0.8), rgba(15, 23, 42, 0.9));
+}
+
+:root[data-theme="light"] body.bg-dark-overlay::before {
+    background: linear-gradient(135deg, rgba(31, 41, 55, 0.6), rgba(51, 65, 85, 0.7));
+}
+
+/* ===== MOBİL OPTİMİZASYON ===== */
+
+@media (max-width: 768px) {
+    /* Mobilde parallax devre dışı */
+    body.bg-parallax {
+        background-attachment: scroll;
+    }
+    
+    /* Mobilde daha hafif overlay */
+    body::before {
+        opacity: 0.9;
+    }
+    
+    /* Dosya boyutunu azaltmak için daha küçük resim */
+    body {
+        background-size: cover;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    /* Animasyonları devre dışı bırak */
+    body.bg-parallax-animate {
+        animation: none;
+        background-attachment: scroll;
+    }
+}
+
+/* ===== RENKLI GRADIENT ÖVERLAYLERİ ===== */
+
+/* Mavi Tonu */
+body.bg-overlay-blue::before {
+    background: linear-gradient(135deg, rgba(15, 23, 42, 0.4), rgba(30, 41, 59, 0.5));
+}
+
+/* Mor Tonu */
+body.bg-overlay-purple::before {
+    background: linear-gradient(135deg, rgba(76, 29, 149, 0.3), rgba(59, 7, 100, 0.4));
+}
+
+/* Yeşil Tonu */
+body.bg-overlay-green::before {
+    background: linear-gradient(135deg, rgba(20, 83, 45, 0.3), rgba(6, 78, 59, 0.4));
+}
+
+/* Kırmızı Tonu */
+body.bg-overlay-red::before {
+    background: linear-gradient(135deg, rgba(159, 18, 57, 0.3), rgba(127, 29, 29, 0.4));
+}
+
+/* Turuncu Tonu */
+body.bg-overlay-orange::before {
+    background: linear-gradient(135deg, rgba(120, 53, 15, 0.3), rgba(124, 45, 18, 0.4));
+}

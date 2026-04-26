@@ -21,9 +21,6 @@
 }
 </script>
     <meta name="description" content="Biroor, eğitim kurumları için geliştirilmiş akıllı tahta yönetim panelidir. Ders programı, nöbetçi takibi ve dijital araçlara tek noktadan ulaşın.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <style>
 :root[data-theme="dark"] {
     --bg-gradient: linear-gradient(135deg, #0f172a, #1e293b);
@@ -817,6 +814,8 @@
             backdrop-filter: blur(12px); 
             border-bottom: 1px solid var(--glass);
             transition: all 0.3s ease;
+            position: relative;
+            z-index: -1;
         }
         
         .status-bar:hover {
@@ -1055,6 +1054,8 @@
             gap: 18px;
             padding: 18px;
             height: calc(100vh - 40px);
+            position: relative;
+            z-index: -1;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -1394,7 +1395,7 @@
                 grid-row: 3;
             }
         }
-@media (max-width: 700px) {
+        @media (max-width: 700px) {
             .main-grid {
                 grid-template-columns: 1fr;
                 grid-template-rows: auto auto auto auto;
@@ -2759,254 +2760,84 @@
         font-size: 0.7rem;
     }
 }
-
-.today-log-card {
-    margin-top: 14px;
-    padding: 16px;
-    border-radius: 18px;
-    border: 1px solid var(--glass);
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.5), rgba(56, 189, 248, 0.08));
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.today-log-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-}
-
-.today-log-head strong {
-    font-size: 1rem;
-    color: var(--accent);
-}
-
-.today-log-meta {
-    font-size: 0.78rem;
-    opacity: 0.78;
-}
-
-.today-log-preview {
-    min-height: 84px;
-    padding: 14px;
-    border-radius: 16px;
-    border: 1px dashed rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    line-height: 1.6;
-    white-space: pre-wrap;
-}
-
-.teacher-inline-btn {
-    width: auto;
-    margin-top: 0;
-    text-transform: none;
-    letter-spacing: 0.2px;
-    padding: 10px 14px;
-    font-size: 0.78rem;
-}
-
-@media (max-width: 640px) {
-    .today-log-head {
-        flex-direction: column;
-        align-items: stretch;
-    }
-}
-</style>
-    <link rel="stylesheet" href="./panel-refresh.css">
+    </style>
 </head>
 <body>
 
 <div id="setupOverlay">
-    <div class="setup-bg-left"></div>
-    <div class="setup-bg-right"></div>
-    <div class="setup-line setup-line-left"></div>
-    <div class="setup-line setup-line-right"></div>
-    <img class="setup-brand-logo" src="2.png" alt="Biroor logo">
 
-    <div class="setup-center">
-        <div class="setup-copy">
-            <div class="setup-kicker">Biroor Etahta</div>
-            <h1 class="setup-title">Sınıf panelini hazırla</h1>
-            <p class="setup-subtitle">Ders akışı, ödev takibi, nöbet planı ve sınıf araçları tek ekranda; tahtayı açtığın anda her şey hazır olsun.</p>
-        </div>
-
-        <div class="setup-highlights">
-            <div class="setup-highlight">
-                <strong>Canlı</strong>
-                <span>Ders akışı ve kalan süre</span>
-            </div>
-            <div class="setup-highlight">
-                <strong>Hızlı</strong>
-                <span>Odak modu, araçlar ve oyun ekranı</span>
-            </div>
-            <div class="setup-highlight">
-                <strong>Düzenli</strong>
-                <span>Ödev, hava durumu ve nöbet listesi</span>
-            </div>
-        </div>
 
         <div class="setup-card">
             <h2>Panel Kurulumu</h2>
-            <p>Başlangıçta hangi sınıfın panelinin açılacağını seç. Sistem o sınıfın verilerini otomatik yükleyecek.</p>
-            <div class="setup-form">
-                <select id="setupClass">
-                <option value="5A">5-A</option><option value="5B">5-B</option><option value="5C">5-C</option><option value="5D">5-D</option>
-                <option value="6A">6-A</option><option value="6B">6-B</option><option value="6C">6-C</option>
-                <option value="7A">7-A</option><option value="7B">7-B</option><option value="7C">7-C</option><option value="7D">7-D</option>
-                <option value="8A">8-A</option><option value="8B">8-B</option><option value="8C">8-C</option>
-                </select>
-                <button id="startBtn">Sistemi Başlat</button>
-            </div>
-            <div class="setup-footnote">Tahta açıldığında panel son seçili sınıfla otomatik devam eder.</div>
+            <select id="setupClass">
+            <option value="5A">5-A</option><option value="5B">5-B</option><option value="5C">5-C</option><option value="5D">5-D</option>
+            <option value="6A">6-A</option><option value="6B">6-B</option><option value="6C">6-C</option>
+            <option value="7A">7-A</option><option value="7B">7-B</option><option value="7C">7-C</option><option value="7D">7-D</option>
+            <option value="8A">8-A</option><option value="8B">8-B</option><option value="8C">8-C</option>
+            </select>
+            <button id="startBtn">SİSTEMİ BAŞLAT</button>
         </div>
     </div>
 
-    <div class="setup-version">v5.7</div>
 </div>
 
 <div class="status-bar">
-    <div class="status-primary">
-        <div class="status-brand">
-            <img src="2.png" alt="Biroor" class="status-brand-logo">
-            <div class="status-brand-copy">
-                <span class="status-eyebrow">Biroor Etahta</span>
-                <div class="status-classline">Sınıf <b id="stClass">--</b></div>
-            </div>
-        </div>
-        <div class="status-summary">Akıllı tahta akışı, ders yönetimi ve sınıf araçları tek bakışta kontrol altında.</div>
-    </div>
-    <div class="status-actions">
-        <div class="status-chip">
-            <span>Oturum Süresi</span>
-            <strong id="uptime">⏱️ 0dk</strong>
-        </div>
+    <div>| Sınıf: <b id="stClass">--</b></div>
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <span id="uptime">⏱️ 0dk</span>
         <span id="layoutEditBadge" class="edit-mode-badge" title="Düzenleme modunu kapat" onclick="exitDashboardEditMode()">Düzenleme Modu Açık</span>
-        <span id="topThemeBtn" class="status-shortcut" onclick="openModal('themeModal')">🎨 Tema</span>
-        <span class="status-shortcut" onclick="window.open('./ogretmen.html', '_blank')">🧑‍🏫 Öğretmen</span>
-        <span class="status-shortcut" onclick="window.open('./telefon.html', '_blank')">📱 Telefon Paneli</span>
-        <span id="topFullscreenBtn" class="status-shortcut" onclick="toggleFullScreen()">🔳 Tam Ekran</span>
+        <span id="topThemeBtn" class="status-shortcut" onclick="openModal('themeModal')">🎨 TEMA</span>
+        <span id="topFullscreenBtn" class="status-shortcut" onclick="toggleFullScreen()">🔳 TAM EKRAN</span>
     </div>
 </div>
 
 <div id="dashboardGrid" class="main-grid">
     <div id="widgetClock" class="panel widget-clock">
-        <div class="panel-header">
-            <div class="panel-title-block">
-                <span class="panel-kicker">Canlı Durum</span>
-                <h2 class="panel-title">Sınıf Nabzı</h2>
-                <p class="panel-blurb">Saat, aktif ders ve nöbetçi akışı bu panelde toplanır.</p>
-            </div>
-            <span class="panel-badge">Bugün</span>
-        </div>
-
-        <div class="clock-stage">
-            <div class="clock-label">Canlı Saat</div>
+        <div>
             <h1 id="clock">00:00</h1>
-            <div id="date" class="clock-date">-- --- ----</div>
+            <div id="date" style="text-align:center; opacity:0.7; font-size: 0.9rem;">-- --- ----</div>
         </div>
-
-        <div class="lesson-focus-card">
-            <div class="section-label">Şu An</div>
+        <div style="background: var(--glass); padding: 15px; border-radius: 15px; text-align: center;">
             <div id="currentLesson" style="font-weight:bold; color:var(--accent);">Ders Bekleniyor</div>
             <div id="lessonTimer">--:--</div>
-            <small class="section-note">Kalan süre</small>
+            <small style="opacity:0.5; letter-spacing: 1px;">KALAN SÜRE</small>
         </div>
-
-        <div class="section-card nobet-card">
-            <div class="section-head">
-                <h4>👮 Nöbetçi Hocalar</h4>
-                <span>Kat planı</span>
-            </div>
-            <div class="nobet-grid">
-                <div class="nobet-item">Bahçe <b id="nBahce">--</b></div>
-                <div class="nobet-item">1. Kat <b id="nK1">--</b></div>
-                <div class="nobet-item">2. Kat <b id="nK2">--</b></div>
-                <div class="nobet-item">3. Kat <b id="nK3">--</b></div>
-                <div class="nobet-item nobet-item-wide">4. Kat <b id="nK4">--</b></div>
-            </div>
+        <div style="flex:1">
+            <h4 style="margin:0 0 10px 0; border-bottom: 1px solid var(--accent);">👮 Nöbetçi Hocalar</h4>
+            <div class="nobet-item">Bahçe: <b id="nBahce">--</b></div>
+            <div class="nobet-item">1. Kat: <b id="nK1">--</b></div>
+            <div class="nobet-item">2. Kat: <b id="nK2">--</b></div>
+            <div class="nobet-item">3. Kat: <b id="nK3">--</b></div>
+            <div class="nobet-item">4. Kat: <b id="nK4">--</b></div>
         </div>
     </div>
 
     <div id="widgetLessons" class="panel widget-lessons">
-        <div class="panel-header">
-            <div class="panel-title-block">
-                <span class="panel-kicker">Günün Akışı</span>
-                <h3 class="panel-title">Ders Programı</h3>
-                <p class="panel-blurb">Aktif ders vurgulanır, kalan dersler sırayla listelenir.</p>
-            </div>
-            <button id="weeklyBtn" class="btn-icon" onclick="showWeekly()">🔍 Haftalık Bak</button>
-        </div>
-        <div class="lessons-shell">
-            <div class="lessons-summary-card">
-                <span>Bugün</span>
-                <strong>Program ders saatine göre otomatik güncelleniyor.</strong>
-            </div>
-            <div id="lessonsPreview" class="lessons-preview"></div>
-        </div>
+        <h3 style="margin-top:0">📅 Günlük Ders Programı</h3>
+        <div id="lessonsPreview"></div>
+        <button id="weeklyBtn" class="btn-icon" onclick="showWeekly()" style="font-size:0.8rem;">🔍 Haftalık Bak</button>
     </div>
 
-    <div id="widgetQuick" class="panel widget-quick">
-        <div class="quick-panel-shell">
-            <div class="panel-header quick-header">
-                <div class="panel-title-block">
-                    <span class="panel-kicker">Hızlı Erişim</span>
-                    <h3 class="panel-title">Ders Araçları</h3>
-                    <p class="panel-blurb">Sık kullanılan modüllere tek dokunuşla geçiş yap.</p>
-                </div>
-                <span class="panel-badge">10 Modül</span>
-            </div>
-
-            <div class="bottom-panel">
-                <div id="cardHw" class="menu-card" onclick="openModal('hwModal')"><span class="menu-icon">📝</span><strong>Ödevler</strong><small>Görev ekle ve sınıf takibini aç</small></div>
-                <div id="cardTools" class="menu-card" onclick="openModal('toolModal')"><span class="menu-icon">🛠️</span><strong>Araçlar</strong><small>Zamanlayıcı, zil ve grup üretici</small></div>
-                <div id="cardFocus" class="menu-card" onclick="toggleFocusMode()"><span class="menu-icon">🧘</span><strong>Odaklanma</strong><small>Dikkat için sade tam ekran görünüm</small></div>
-                <div id="cardAtt" class="menu-card" onclick="openModal('attModal')"><span class="menu-icon">📋</span><strong>ATT Sonuçları</strong><small>Rol sıralaması ve hızlı kontrol</small></div>
-                <div id="cardOffice" class="menu-card" onclick="openModal('officeModal')"><span class="menu-icon">💼</span><strong>BiroOffice</strong><small>Yazı, tablo ve sunum ekranı</small></div>
-                <div id="cardTheme" class="menu-card" onclick="openModal('themeModal')"><span class="menu-icon">🎨</span><strong>Temalar</strong><small>Panelin görünümünü değiştir</small></div>
-                <div class="menu-card" onclick="window.open('./ogretmen.html', '_blank')"><span class="menu-icon">🧑‍🏫</span><strong>Öğretmen Paneli</strong><small>Bugün yapılanları ve öğrenci girişlerini yönet</small></div>
-                <div class="menu-card" onclick="window.open('./telefon.html', '_blank')"><span class="menu-icon">📱</span><strong>Telefon Paneli</strong><small>Evden kullanım için mobil görünümü aç</small></div>
-                <div id="cardSettings" class="menu-card" onclick="openModal('settingsModal')"><span class="menu-icon">⚙️</span><strong>Ayarlar</strong><small>Yerleşim ve panel davranışları</small></div>
-                <div id="cardGame" class="menu-card" onclick="openModal('gameSelectModal')"><span class="menu-icon">🎮</span><strong>Oyun Modu</strong><small>Ders içi etkinlik ekranını aç</small></div>
-            </div>
-        </div>
+    <div id="widgetQuick" class="panel bottom-panel widget-quick">
+        <div id="cardHw" class="menu-card" onclick="openModal('hwModal')"><span>📝</span>Ödevler</div>
+        <div id="cardTools" class="menu-card" onclick="openModal('toolModal')"><span>🛠️</span>Araçlar</div>
+        <div id="cardFocus" class="menu-card" onclick="toggleFocusMode()"><span>🧘</span>Odaklanma</div>
+        <div id="cardAtt" class="menu-card" onclick="openModal('attModal')"><span>📋</span>ATT SONUÇLARI</div>
+        <div id="cardOffice" class="menu-card" onclick="openModal('officeModal')"><span>💼</span>BiroOffice</div>
+        <div id="cardTheme" class="menu-card" onclick="openModal('themeModal')"><span>🎨</span>TEMALAR</div>
+        <div id="cardSettings" class="menu-card" onclick="openModal('settingsModal')"><span>⚙️</span>Ayarlar</div>
+        <div id="cardGame" class="menu-card" onclick="openModal('gameSelectModal')"><span>🎮</span>Oyun Modu</div>
     </div>
 
     <div id="widgetHomework" class="panel widget-homework">
-        <div class="panel-header">
-            <div class="panel-title-block">
-                <span class="panel-kicker">Takip Alanı</span>
-                <h3 class="panel-title">Ödev Tahtası</h3>
-                <p class="panel-blurb">Sınıf için kaydedilen görevler ve kısa hatırlatmalar.</p>
-            </div>
-            <span class="panel-badge">Canlı</span>
+        <div style="flex:1">
+            <h3 style="margin:0; color:var(--accent);">📌 Ödev Tahtası</h3>
+            <div id="hwPreview" style="font-size:0.85rem; margin-top:10px; overflow-y: auto;"></div>
         </div>
-
-        <div class="homework-shell">
-            <div id="hwPreview" class="homework-preview"></div>
-        </div>
-
-        <div class="today-log-card">
-            <div class="today-log-head">
-                <div>
-                    <strong>Bugün Ne Yaptık?</strong>
-                    <div id="todayLogMeta" class="today-log-meta">Bugün için henüz paylaşım yapılmadı.</div>
-                </div>
-                <button class="teacher-inline-btn" onclick="window.open('./ogretmen.html', '_blank')">Öğretmen Paneli</button>
-            </div>
-            <div id="todayLogPreview" class="today-log-preview">Ders özeti burada görünecek.</div>
-        </div>
-
-        <div class="weather-card">
-            <div class="weather-icon-wrap">
-                <div id="wIcon">☀️</div>
-            </div>
-            <div class="weather-copy">
-                <div class="weather-label">Dışarıda Hava</div>
-                <div id="wTemp">--°C</div>
-                <div class="weather-location">Cide / Kastamonu</div>
-            </div>
+        <div style="text-align:center; padding:15px; background: var(--glass); border-radius: 20px; margin-top: 10px;">
+            <div id="wIcon" style="font-size: 2.5rem;">☀️</div>
+            <div id="wTemp" style="font-size: 1.8rem; font-weight: bold;">--°C</div>
+            <div style="font-size: 0.7rem; opacity: 0.6; margin-top: 5px;">CİDE / KASTAMONU</div>
         </div>
     </div>
 </div>
@@ -3152,33 +2983,10 @@
             <img src="2.png" alt="Biroor Logo" style="width: 80px; height: 80px; border-radius: 15px; margin-bottom: 10px; object-fit: cover;">
             <h4 style="margin: 5px 0; color: var(--accent);">Biroor Akıllı Tahta Paneli</h4>
             <p style="font-size: 0.75rem; opacity: 0.7; line-height: 1.4;">
-                Versiyon 5.7 /_-.Extaria.-_/ <br>
+                Versiyon 5.1 /_-.Extaria.-_/ <br>
                 © 2025 - 2026 Berkay Aday  <br>
                 Cide / Kastamonu / Şehit Necmi Yıldırım Ortaokulu <br>
             </p>
-        </div>
-
-        <div class="settings-box" style="margin-bottom: 14px;">
-            <h4 style="margin:0; color:var(--accent);">🖼️ Görünüm Modu</h4>
-            <div class="design-mode-grid">
-                <button type="button" class="design-mode-btn" data-design-mode="modern" onclick="setPanelDesignMode('modern')">
-                    <span>Yeni Tasarım</span>
-                    <small>Kartlı ve modern görünüm</small>
-                </button>
-                <button type="button" class="design-mode-btn" data-design-mode="classic" onclick="setPanelDesignMode('classic')">
-                    <span>Eski Tasarım</span>
-                    <small>Önceki sade panel düzeni</small>
-                </button>
-                <button type="button" class="design-mode-btn" data-design-mode="control" onclick="setPanelDesignMode('control')">
-                    <span>Kontrol Odası</span>
-                    <small>Keskin, teknik ve bambaşka görünüm</small>
-                </button>
-                <button type="button" class="design-mode-btn" data-design-mode="bulletin" onclick="setPanelDesignMode('bulletin')">
-                    <span>Pano Duvarı</span>
-                    <small>Kağıt, bant ve duyuru panosu hissi</small>
-                </button>
-            </div>
-            <div id="panelDesignStatus" class="design-mode-status">Yeni tasarım aktif.</div>
         </div>
 
         <div class="settings-box" style="margin-bottom: 14px;">
@@ -3207,7 +3015,7 @@
                     <input id="psRightWidth" type="range" min="220" max="520" step="1" oninput="syncPanelStylePreview()">
                 </div>
                 <div class="panel-style-row">
-                    <div class="panel-style-row-top"><span>Alt Satır Yüksekliği</span><span id="psBottomHeightVal">250px</span></div>
+                    <div class="panel-style-row-top"><span>Alt Satır Yüksekliği</span><span id="psBottomHeightVal">140px</span></div>
                     <input id="psBottomHeight" type="range" min="90" max="280" step="1" oninput="syncPanelStylePreview()">
                 </div>
                 <div class="panel-style-row">

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+    <title>Biroor Telefon Paneli</title>
+    <meta name="description" content="Evde kullanım için hazırlanmış Biroor telefon paneli. Ders programı, sınıf ödevleri ve çalışma listesi tek ekranda.">
+    <link rel="icon" href="2.png" sizes="any" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./telefon.css">
+</head>
+<body>
+    <main class="phone-shell">
+        <section class="hero">
+            <div class="eyebrow">Biroor Ev Modu</div>
+            <h1 class="hero-title">Telefon icin hazir sinif paneli</h1>
+            <p class="hero-copy">Ders programi, sinif odevleri ve evde calisma takibini tek ekranda toplayan sade bir mobil gorunum.</p>
+
+            <div class="toolbar">
+                <div class="field">
+                    <label for="classSelect">Sinif</label>
+                    <select id="classSelect" aria-label="Sinif sec"></select>
+                </div>
+                <button id="syncButton" type="button">Sinifi Kaydet</button>
+            </div>
+
+            <div class="top-links">
+                <a href="./index.html">Akilli Tahtaya Don</a>
+                <a href="#studySection">Ev Calisma Listesi</a>
+            </div>
+        </section>
+
+        <section class="stats-grid" aria-label="Ozet kartlari">
+            <article class="stat-card">
+                <span class="stat-label">Su An / Sonraki</span>
+                <div id="currentStat" class="stat-value">Ders bekleniyor</div>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Kalan Sure</span>
+                <div id="timerStat" class="stat-value">--:--</div>
+            </article>
+            <article class="stat-card">
+                <span class="stat-label">Odev Sayisi</span>
+                <div id="homeworkCountStat" class="stat-value">0</div>
+            </article>
+        </section>
+
+        <div class="stack">
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Bugun Sinifta Ne Yaptik?</h2>
+                        <p>Ogretmenin tahta panelinden paylastigi gunluk ders ozeti burada gorunur.</p>
+                    </div>
+                    <div id="dailyLogMeta" class="chip">Canli</div>
+                </div>
+                <div id="dailyLogPreview" class="daily-log-box">Bugun icin paylasilan ders ozeti henuz yok.</div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Ogrenci Girisi</h2>
+                        <p>Adini yazarak bugun derste oldugunu bildir. Ogretmen panelinde gorunur.</p>
+                    </div>
+                    <div class="chip">Yoklama</div>
+                </div>
+                <div class="sheet">
+                    <input id="studentNameInput" type="text" placeholder="Adin ve soyadin">
+                    <button id="studentLoginButton" type="button">Adimi Kaydet</button>
+                </div>
+                <div id="studentLoginStatus" class="status-note">Ayni ad tekrar kaydedilirse bugunku kayit guncellenir.</div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Bugunun Akisi</h2>
+                        <p id="todaySubtitle">Guncel ders sirasi burada gorunur.</p>
+                    </div>
+                    <div id="todayChip" class="chip">Bugun</div>
+                </div>
+                <div id="todayList" class="lesson-list"></div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Haftalik Program</h2>
+                        <p>Her gunun derslerini telefondan hizlica kontrol edebilirsin.</p>
+                    </div>
+                    <div class="chip">Hafta</div>
+                </div>
+                <div id="weeklyGrid" class="week-grid"></div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Sinif Odevleri</h2>
+                        <p>Tahtadaki odev akisi ile ortak calisir.</p>
+                    </div>
+                    <button id="toggleHomeworkForm" type="button" class="ghost-btn">Odev Ekle</button>
+                </div>
+                <div id="homeworkStatus" class="status-note"></div>
+                <div id="homeworkForm" class="sheet" hidden>
+                    <div class="sheet-head">
+                        <strong>Yeni Odev</strong>
+                        <button id="closeHomeworkForm" type="button" class="ghost-btn">Kapat</button>
+                    </div>
+                    <input id="hwTitle" type="text" placeholder="Ders adi">
+                    <textarea id="hwDesc" placeholder="Odev detayi"></textarea>
+                    <button id="saveHomeworkButton" type="button" class="secondary-btn">Odevi Kaydet</button>
+                </div>
+                <div id="homeworkList" class="homework-list"></div>
+            </section>
+
+            <section id="studySection" class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Ev Calisma Listem</h2>
+                        <p>Kisiye ozel kisa kontrol listesi. Bu alan sadece telefonda saklanir.</p>
+                    </div>
+                    <div class="chip">Kisisel</div>
+                </div>
+                <div class="sheet">
+                    <input id="todoInput" type="text" placeholder="Ornek: Fen testini bitir">
+                    <button id="addTodoButton" type="button">Listeye Ekle</button>
+                </div>
+                <div id="todoList" class="todo-list"></div>
+            </section>
+
+            <section class="card">
+                <div class="section-head">
+                    <div>
+                        <h2>Kisa Notlar</h2>
+                        <p>Yarin anlatilacak konu, getirilecek materyal veya hatirlatmalar.</p>
+                    </div>
+                    <div class="chip">Not</div>
+                </div>
+                <textarea id="studyNote" placeholder="Yarin icin not birak..."></textarea>
+                <div id="noteStatus" class="status-note">Notlar otomatik kaydedilir.</div>
+            </section>
+        </div>
+
+        <div class="footer-note">
+            Telefon paneli secili sinifi <code>myClass</code> anahtari ile saklar; masaustu ve mobil gorunum ayni sinif bilgisiyle acilabilir.
+        </div>
+    </main>
+
+    <script type="module" src="./telefon.js"></script>
+</body>
+</html>

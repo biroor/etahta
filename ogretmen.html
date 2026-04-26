@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Biroor | Ogretmen Paneli</title>
+    <link rel="icon" href="2.png" sizes="any" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./ogretmen.css">
+</head>
+<body>
+    <div id="gateView" class="teacher-gate">
+        <section class="teacher-gate-visual" aria-label="Bilgi alani">
+            <a class="home-link" href="./index.html">&larr; Etahtaya don</a>
+            <div class="hero-text">
+                <h1>ogretmen paneline gec</h1>
+                <p></p>
+            </div>
+            <div class="hero-hint"></div>
+            <div class="cosmos" aria-hidden="true">
+                <div class="orb one"></div>
+                <div class="orb two"></div>
+                <div class="orb three"></div>
+                <div class="mist"></div>
+            </div>
+        </section>
+
+        <section class="teacher-gate-form" aria-label="Giris bilgilendirme alani">
+            <div class="teacher-gate-card">
+                <div class="teacher-kicker">Ana Sistem Girisi</div>
+                <h2>Ogretmen paneli icin once auth.html ile giris yap</h2>
+                <p id="gateMessage" class="teacher-gate-copy">Kayitli kullanici bulunamadi. Ana sistemde oturum actiginda bu sayfa ayni tarayicida otomatik hazir olur.</p>
+
+                <div class="teacher-gate-actions">
+                    <a class="teacher-primary-btn" href="../biroor/auth.html" target="_blank" rel="noopener noreferrer">auth.html ac</a>
+                    <button id="gateRefreshButton" class="teacher-ghost-btn" type="button">Oturumu kontrol et</button>
+                </div>
+
+                <div id="gateStatus" class="teacher-gate-status">Bekleniyor: <code>biroor_auth_user_v2</code></div>
+
+            </div>
+        </section>
+    </div>
+
+    <div id="dashboardView" class="teacher-app hidden">
+        <header class="teacher-header">
+            <div>
+                <div class="teacher-kicker">Biroor Ogretmen Paneli</div>
+                <h1>Canli sinif kontrol merkezi</h1>
+                <p>Bugun ne yaptik kaydi, ogrenci girisleri ve sinif odevleri burada toplanir.</p>
+            </div>
+            <div class="teacher-header-actions">
+                <div id="teacherUserSummary" class="teacher-user-pill">Oturum acik</div>
+                <a class="teacher-link-btn" href="./index.html">Etahta</a>
+                <a class="teacher-link-btn" href="./telefon.html" target="_blank" rel="noopener noreferrer">Telefon</a>
+                <a class="teacher-link-btn" href="https://biroorweb.uk/auth.html" target="_blank" rel="noopener noreferrer">giriş yap</a>
+                <button id="teacherLogoutButton" class="teacher-ghost-btn" type="button">Cikis Yap</button>
+            </div>
+        </header>
+
+        <main class="teacher-layout">
+            <section class="teacher-card teacher-card-wide">
+                <div class="teacher-card-head">
+                    <div>
+                        <div class="teacher-card-title">Yazı Merkezi</div>
+                        <p>Bugun sinifta yaptiginiz calismalari yazin.</p>
+                    </div>
+                    <div class="teacher-select-wrap">
+                        <label for="teacherClassSelect">Sinif</label>
+                        <select id="teacherClassSelect"></select>
+                    </div>
+                </div>
+
+                <div class="teacher-stats-grid">
+                    <article class="teacher-stat-card">
+                        <span>Secili sinif</span>
+                        <strong id="teacherClassLabel">--</strong>
+                    </article>
+                    <article class="teacher-stat-card">
+                        <span>Ogrenci girisi</span>
+                        <strong id="teacherStudentCount">0</strong>
+                    </article>
+                    <article class="teacher-stat-card">
+                        <span>Odev sayisi</span>
+                        <strong id="teacherHomeworkCount">0</strong>
+                    </article>
+                    <article class="teacher-stat-card">
+                        <span>Son guncelleme</span>
+                        <strong id="teacherDailyUpdated">Bekleniyor</strong>
+                    </article>
+                </div>
+
+                <textarea id="teacherTodayInput" class="teacher-textarea" placeholder="Bugun hangi konulari islediniz, hangi etkinlikleri yaptiniz?"></textarea>
+
+                <div class="teacher-toolbar">
+                    <div id="teacherTodayStatus" class="teacher-status-note"></div>
+                    <button id="saveDailyNoteButton" class="teacher-primary-btn" type="button">Kaydet ve Yayinla</button>
+                </div>
+            </section>
+
+            <section class="teacher-card">
+                <div class="teacher-card-head">
+                    <div>
+                        <div class="teacher-card-title">Canli Onizleme</div>
+                        <p>Ogrencilerin telefonda gorecegi bugun notu.</p>
+                    </div>
+                    <div id="teacherDailyMeta" class="teacher-small-pill">Canli</div>
+                </div>
+                <div id="teacherDailyPreview" class="teacher-note-box">Bugun icin paylasilan ders ozeti henuz yok.</div>
+            </section>
+
+            <section class="teacher-card">
+                <div class="teacher-card-head">
+                    <div>
+                        <div class="teacher-card-title">Telefondan Ogrenci Girisleri</div>
+                        <p>Bugun isim yazan ogrenciler.</p>
+                    </div>
+                    <div id="teacherStudentMeta" class="teacher-small-pill">0 kayit</div>
+                </div>
+                <div id="teacherStudentList" class="teacher-list"></div>
+            </section>
+
+            <section class="teacher-card teacher-card-wide">
+                <div class="teacher-card-head">
+                    <div>
+                        <div class="teacher-card-title">Sinif Odevleri</div>
+                        <p>Secili sinifin ödevleri</p>
+                    </div>
+                    <div class="teacher-small-pill">Firestore</div>
+                </div>
+                <div id="teacherHomeworkList" class="teacher-list"></div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="./ogretmen.js"></script>
+</body>
+</html>
