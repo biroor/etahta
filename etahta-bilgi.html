@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Biroor E-Tahta | Bilgi Sayfası</title>
+    <link rel="icon" href="2.png" sizes="any" type="image/png" />
+    <style>
+      :root {
+        --bg: #f3f7ff;
+        --panel: #ffffff;
+        --ink: #1f2a3a;
+        --muted: #64748b;
+        --line: #d9e2f0;
+        --brand: #1b5fc5;
+        --brand-deep: #154ea3;
+        --shadow: 0 14px 36px rgba(20, 45, 84, 0.1);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        color: var(--ink);
+        background: radial-gradient(circle at 8% 0%, #eaf2ff 0%, transparent 35%), var(--bg);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 18px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(255, 255, 255, 0.95);
+        border-bottom: 1px solid var(--line);
+        backdrop-filter: blur(8px);
+      }
+
+      .topbar-inner {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+      }
+
+      .brand img {
+        width: 30px;
+        height: auto;
+      }
+
+      .actions {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 14px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .btn:hover {
+        background: #f3f6fc;
+      }
+
+      .btn-main {
+        border-color: var(--brand);
+        color: #fff;
+        background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      }
+
+      .btn-main:hover {
+        filter: brightness(0.96);
+      }
+
+      .hero {
+        padding: 48px 0 26px;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 22px;
+        grid-template-columns: 1.1fr 1fr;
+        align-items: center;
+      }
+
+      .pill-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-bottom: 12px;
+      }
+
+      .pill {
+        border: 1px solid #c9daf7;
+        color: #29538f;
+        background: #edf4ff;
+        border-radius: 999px;
+        padding: 6px 10px;
+        font-size: 0.8rem;
+        font-weight: 700;
+      }
+
+      .hero h1 {
+        margin: 0;
+        font-size: clamp(1.9rem, 4vw, 3.1rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+      }
+
+      .hero p {
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 1.05rem;
+      }
+
+      .hero-card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 14px;
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card img {
+        width: 100%;
+        border-radius: 12px;
+        border: 1px solid #d7e3f7;
+      }
+
+      .hero-card small {
+        display: block;
+        color: var(--muted);
+        margin-top: 9px;
+      }
+
+      .photo-trigger {
+        width: 100%;
+        border: 0;
+        background: transparent;
+        padding: 0;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+
+      .photo-trigger:focus-visible {
+        outline: 3px solid rgba(27, 95, 197, 0.32);
+      }
+
+      .trigger-note {
+        margin-top: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        color: var(--muted);
+        font-size: 0.85rem;
+        font-weight: 700;
+      }
+
+      .gallery-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        background: rgba(45, 49, 56, 0.52);
+      }
+
+      .gallery-modal[hidden] {
+        display: none !important;
+      }
+
+      .gallery-dialog {
+        position: relative;
+        width: min(1280px, 94vw);
+        background: #fff;
+        border: 1px solid #dfe5ef;
+        border-radius: 6px;
+        padding: 12px 12px 10px;
+        box-shadow: 0 18px 44px rgba(24, 32, 46, 0.28);
+      }
+
+      .gallery-close {
+        position: absolute;
+        right: 8px;
+        top: 2px;
+        border: 0;
+        background: transparent;
+        color: #a7b0bc;
+        font-size: 2.7rem;
+        line-height: 1;
+        cursor: pointer;
+      }
+
+      .gallery-close:hover {
+        color: #6a7481;
+      }
+
+      .gallery-stage {
+        position: relative;
+        min-height: clamp(280px, 62vh, 640px);
+        border-radius: 4px;
+        background: #f8fafc;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .gallery-main-img {
+        max-width: calc(100% - 150px);
+        max-height: 60vh;
+        object-fit: contain;
+      }
+
+      .gallery-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        border: 0;
+        background: rgba(255, 255, 255, 0.92);
+        color: #c2c8d1;
+        font-size: 5rem;
+        line-height: 0.9;
+        width: 84px;
+        height: 84px;
+        border-radius: 999px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gallery-nav:hover {
+        color: #8f98a6;
+      }
+
+      .gallery-prev {
+        left: -6px;
+      }
+
+      .gallery-next {
+        right: -6px;
+      }
+
+      .thumb-row {
+        margin-top: 10px;
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding: 2px 0 2px;
+      }
+
+      .thumb-btn {
+        flex: 0 0 72px;
+        border: 1px solid #e1e6ef;
+        border-radius: 4px;
+        background: #fff;
+        padding: 3px;
+        cursor: pointer;
+      }
+
+      .thumb-btn img {
+        width: 100%;
+        height: 50px;
+        border-radius: 3px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .thumb-btn.is-active {
+        border-color: #f2b21a;
+        box-shadow: inset 0 0 0 1px #f2b21a;
+      }
+
+      .section {
+        padding: 22px 0;
+      }
+
+      .section h2 {
+        margin: 0 0 14px;
+        font-size: 1.45rem;
+      }
+
+      .cards {
+        display: grid;
+        gap: 12px;
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .card {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 14px;
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 1rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .steps {
+        display: grid;
+        gap: 10px;
+      }
+
+      .step {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .step strong {
+        display: block;
+        margin-bottom: 4px;
+      }
+
+      .step span {
+        color: var(--muted);
+        font-size: 0.93rem;
+      }
+
+      .faq {
+        display: grid;
+        gap: 10px;
+      }
+
+      details {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      summary {
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      details p {
+        margin: 10px 0 0;
+        color: var(--muted);
+      }
+
+      .cta {
+        margin: 18px 0 34px;
+        padding: 20px;
+        background: linear-gradient(140deg, #163f7d, #1b5fc5 72%);
+        border-radius: 18px;
+        color: #eff6ff;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .cta p {
+        margin: 0;
+        color: #dce8ff;
+      }
+
+      @media (max-width: 920px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <a class="brand" href="index.html">
+          <img src="2.png" alt="Biroor logo" />
+          <span>Biroor E-Tahta</span>
+        </a>
+        <div class="actions">
+          <a class="btn" href="index.html">Ana Sayfa</a>
+          <a class="btn btn-main" href="https://biroorweb.uk/Biroor-Etahta-Okul-Paneli/">Dene</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div>
+            <div class="pill-row">
+              <span class="pill">Akıllı Tahta Uyumlu</span>
+              <span class="pill">Okul Odaklı</span>
+              <span class="pill">Web Tabanlı</span>
+            </div>
+            <h1>Biroor E-Tahta Bilgi Sayfası</h1>
+            <p>
+              Biroor E-Tahta, Okulun Durumunu Gerçek Zamanlı İzlemenizi Sağlar.
+            </p>
+          </div>
+          <div class="hero-card">
+            <button id="open-gallery-btn" type="button" class="photo-trigger" aria-expanded="false" aria-controls="gallery-modal">
+              <img src="etahta.png" alt="Biroor E-Tahta ekran görüntüsü" />
+            </button>
+            <div class="trigger-note">
+              <span id="gallery-note"></span>
+              <span>Galeri</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div id="gallery-modal" class="gallery-modal" hidden>
+        <div class="gallery-dialog" role="dialog" aria-modal="true" aria-label="E-Tahta fotoğraf galerisi">
+          <button id="gallery-close-btn" class="gallery-close" type="button" aria-label="Kapat">×</button>
+          <div class="gallery-stage">
+            <button id="gallery-prev-btn" class="gallery-nav gallery-prev" type="button" aria-label="Önceki fotoğraf">‹</button>
+            <img id="gallery-main-img" class="gallery-main-img" alt="Galeri fotoğrafı" />
+            <button id="gallery-next-btn" class="gallery-nav gallery-next" type="button" aria-label="Sonraki fotoğraf">›</button>
+          </div>
+          <div id="gallery-thumb-row" class="thumb-row" aria-label="Küçük görseller"></div>
+        </div>
+      </div>
+
+      <section class="section">
+        <div class="container">
+          <h2>Neler Sunar</h2>
+          <div class="cards">
+            <article class="card">
+              <h3>Sade Kullanım</h3>
+              <p>Akıllı tahta kullanımına uygun büyük butonlar vb</p>
+            </article>
+            <article class="card">
+              <h3>Web Tabanlı Yapı</h3>
+              <p>Kurulum gerekmez Aç çalıştır</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section class="section">
+        <div class="container">
+          <h2>Kullanım</h2>
+          <div class="steps">
+            <div class="step">
+              <strong>Basit Kurulum</strong>
+              <span>Sınıfı seçerek Açabilirsiniz</span>
+            </div>
+            <div class="step">
+              <strong>2. Yapılandırma</strong>
+              <span>Github Syfasından Açık Kaynaklı Yapılandırma</span>
+              <a class="btn btn-main" href="https://github.com/biroor/etahta" target="_blank">Github Sayfası</a>
+            </div>
+          </div>
+        </div>
+      </section>   
+    </main>
+
+    <script>
+      (function () {
+        const openBtn = document.getElementById("open-gallery-btn");
+        const modal = document.getElementById("gallery-modal");
+        const dialog = modal ? modal.querySelector(".gallery-dialog") : null;
+        const closeBtn = document.getElementById("gallery-close-btn");
+        const prevBtn = document.getElementById("gallery-prev-btn");
+        const nextBtn = document.getElementById("gallery-next-btn");
+        const mainImg = document.getElementById("gallery-main-img");
+        const thumbRow = document.getElementById("gallery-thumb-row");
+        const galleryNote = document.getElementById("gallery-note");
+
+        if (!openBtn || !modal || !dialog || !closeBtn || !prevBtn || !nextBtn || !mainImg || !thumbRow || !galleryNote) return;
+
+        modal.hidden = true;
+
+        const photos = [
+          { src: "etahta.png", title: "E-Tahta " },
+          { src: "gunbatimi-tema.png", title: "GünBatımı Teamsı" },
+          { src: "ilk-versiyon-neocanva.png", title: "ilk versiyon" },
+          { src: "+50-tema.png", title: "+50 tema" },
+          { src: "panel-ayarları.png", title: "Panel ayarları" },
+        ];
+
+        let currentIndex = 0;
+        let thumbsRendered = false;
+
+        function normalizeIndex(index) {
+          if (index < 0) return photos.length - 1;
+          if (index >= photos.length) return 0;
+          return index;
+        }
+
+        function updateMainPhoto(index) {
+          currentIndex = normalizeIndex(index);
+          const current = photos[currentIndex];
+          mainImg.src = current.src;
+          mainImg.alt = current.title;
+
+          const thumbButtons = thumbRow.querySelectorAll(".thumb-btn");
+          thumbButtons.forEach(function (btn, btnIndex) {
+            btn.classList.toggle("is-active", btnIndex === currentIndex);
+          });
+        }
+
+        function renderThumbs() {
+          if (thumbsRendered) return;
+          const fragment = document.createDocumentFragment();
+          photos.forEach(function (photo, index) {
+            const btn = document.createElement("button");
+            btn.type = "button";
+            btn.className = "thumb-btn";
+            btn.setAttribute("aria-label", (index + 1) + ". fotoğraf");
+
+            const img = document.createElement("img");
+            img.src = photo.src;
+            img.alt = photo.title;
+            btn.appendChild(img);
+            btn.addEventListener("click", function () {
+              updateMainPhoto(index);
+            });
+            fragment.appendChild(btn);
+          });
+          thumbRow.appendChild(fragment);
+          thumbsRendered = true;
+        }
+
+        function openGallery(startIndex) {
+          renderThumbs();
+          updateMainPhoto(startIndex || 0);
+          modal.hidden = false;
+          openBtn.setAttribute("aria-expanded", "true");
+          galleryNote.textContent = "Galeri açık (10 fotoğraf)";
+          document.body.style.overflow = "hidden";
+        }
+
+        function closeGallery() {
+          modal.hidden = true;
+          openBtn.setAttribute("aria-expanded", "false");
+          galleryNote.textContent = "";
+          document.body.style.overflow = "";
+        }
+
+        openBtn.addEventListener("click", function () {
+          openGallery(0);
+        });
+
+        closeBtn.addEventListener("click", closeGallery);
+        prevBtn.addEventListener("click", function () {
+          updateMainPhoto(currentIndex - 1);
+        });
+        nextBtn.addEventListener("click", function () {
+          updateMainPhoto(currentIndex + 1);
+        });
+
+        modal.addEventListener("click", function (event) {
+          if (event.target === modal) {
+            closeGallery();
+          }
+        });
+
+        document.addEventListener("keydown", function (event) {
+          if (modal.hidden) return;
+          if (event.key === "Escape") closeGallery();
+          if (event.key === "ArrowLeft") updateMainPhoto(currentIndex - 1);
+          if (event.key === "ArrowRight") updateMainPhoto(currentIndex + 1);
+        });
+      })();
+    </script>
+  </body>
+</html>
